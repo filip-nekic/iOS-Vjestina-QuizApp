@@ -12,6 +12,7 @@
 		520710AA26221B5000DEB99B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520710A926221B5000DEB99B /* SceneDelegate.swift */; };
 		520710B126221B5200DEB99B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 520710B026221B5200DEB99B /* Assets.xcassets */; };
 		520710B426221B5200DEB99B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 520710B226221B5200DEB99B /* LaunchScreen.storyboard */; };
+		5222DC9D2626049B0063AE39 /* Pictures in Resources */ = {isa = PBXBuildFile; fileRef = 5222DC9C2626049B0063AE39 /* Pictures */; };
 		522764C1262483FE00691585 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522764C0262483FE00691585 /* LoginViewController.swift */; };
 		522764D82624E81A00691585 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522764D72624E81A00691585 /* DataService.swift */; };
 		522764DB2624E83200691585 /* DataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522764DA2624E83200691585 /* DataServiceProtocol.swift */; };
@@ -31,6 +32,7 @@
 		520710B026221B5200DEB99B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		520710B326221B5200DEB99B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		520710B526221B5200DEB99B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5222DC9C2626049B0063AE39 /* Pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pictures; sourceTree = "<group>"; };
 		522764C0262483FE00691585 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		522764D72624E81A00691585 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataService.swift; path = ../../../../Downloads/iOS_2021/Data/DataService.swift; sourceTree = "<group>"; };
 		522764DA2624E83200691585 /* DataServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataServiceProtocol.swift; path = ../../../../Downloads/iOS_2021/Data/DataServiceProtocol.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		520710A626221B5000DEB99B /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
+				5222DC9C2626049B0063AE39 /* Pictures */,
 				522764E42624EE9600691585 /* LoginStatus.swift */,
 				522764E12624EE9500691585 /* Question.swift */,
 				522764E22624EE9500691585 /* Quiz.swift */,
@@ -167,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5222DC9D2626049B0063AE39 /* Pictures in Resources */,
 				520710B426221B5200DEB99B /* LaunchScreen.storyboard in Resources */,
 				520710B126221B5200DEB99B /* Assets.xcassets in Resources */,
 			);
