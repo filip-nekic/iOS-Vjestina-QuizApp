@@ -21,7 +21,6 @@
 		52806A852626EEB20031245D /* DataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A7F2626EEB20031245D /* DataServiceProtocol.swift */; };
 		52806A862626EEB20031245D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A802626EEB20031245D /* DataService.swift */; };
 		52806A872626EEB20031245D /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A812626EEB20031245D /* Quiz.swift */; };
-		52806A8A2626F4FA0031245D /* MyFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A892626F4FA0031245D /* MyFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +41,6 @@
 		52806A7F2626EEB20031245D /* DataServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceProtocol.swift; sourceTree = "<group>"; };
 		52806A802626EEB20031245D /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		52806A812626EEB20031245D /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
-		52806A892626F4FA0031245D /* MyFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlowLayout.swift; sourceTree = "<group>"; };
 		7021A85F9465CADA71F53631 /* Pods-QuizApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizApp.debug.xcconfig"; path = "Target Support Files/Pods-QuizApp/Pods-QuizApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,7 +91,6 @@
 				520710B526221B5200DEB99B /* Info.plist */,
 				522764C0262483FE00691585 /* LoginViewController.swift */,
 				522764EA2624F6A500691585 /* QuizzesViewController.swift */,
-				52806A892626F4FA0031245D /* MyFlowLayout.swift */,
 			);
 			path = QuizApp;
 			sourceTree = "<group>";
@@ -215,7 +212,6 @@
 				522764C1262483FE00691585 /* LoginViewController.swift in Sources */,
 				52806A852626EEB20031245D /* DataServiceProtocol.swift in Sources */,
 				52806A822626EEB20031245D /* LoginStatus.swift in Sources */,
-				52806A8A2626F4FA0031245D /* MyFlowLayout.swift in Sources */,
 				52806A832626EEB20031245D /* QuizCategory.swift in Sources */,
 				520710A826221B5000DEB99B /* AppDelegate.swift in Sources */,
 				52806A872626EEB20031245D /* Quiz.swift in Sources */,
