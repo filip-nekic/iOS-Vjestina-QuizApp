@@ -17,7 +17,7 @@ class QuizzesViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var lightBulb: UIImageView!
     private var quizzes: [Quiz]!
-    private var quizzesByCategory: [QuizCategory: [Quiz]]!
+    private var quizzesByCategory: [[Quiz]]!
     let cellIdentifier = "cellId"
     
     override func viewDidLoad() {
@@ -69,16 +69,18 @@ class QuizzesViewController: UIViewController {
             funFactText.numberOfLines = 7
             
             
-            
+            //quizzes and their layout
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.itemSize = CGSize(width: view.frame.width - 20, height: 200)
             flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
             flowLayout.scrollDirection = .vertical
             flowLayout.headerReferenceSize = CGSize(width: view.frame.width, height: 20)
+            flowLayout.sectionHeadersPinToVisibleBounds = false
             collectionView = UICollectionView(frame: CGRect(x: 0, y: 700 , width: (view.frame.width - 20), height: 10), collectionViewLayout: flowLayout)
             collectionView.backgroundColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
             collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-            collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeader")
+            collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection0")
+            collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection1")
             collectionView.dataSource = self
             collectionView.delegate = self
             
@@ -149,11 +151,12 @@ class QuizzesViewController: UIViewController {
             
         }
     }
-    
+    // method that gets quizzes after button "Get Quiz" is pressed
     @objc func getQuizzes() {
         let dataService = DataService()
         quizzes = dataService.fetchQuizes()
-        quizzesByCategory = Dictionary(grouping: quizzes, by: { $0.category})
+        let dict = Dictionary(grouping: quizzes, by: { $0.category})
+        quizzesByCategory = dict.map{ $0.value }
         viewDidLoad()
     }
    
@@ -162,7 +165,7 @@ class QuizzesViewController: UIViewController {
 extension QuizzesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Array(quizzesByCategory)[section].value.count
+        return quizzesByCategory[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -172,8 +175,7 @@ extension QuizzesViewController: UICollectionViewDataSource {
         cell.contentView.layer.cornerRadius = 20.0
         
         
-        let quiz = Array(quizzesByCategory)[indexPath.section].value
-        let certainQuiz = quiz[indexPath.row]
+        let certainQuiz = quizzesByCategory[indexPath.section][indexPath.row]
         let quizDescription = certainQuiz.description
         
         let index = certainQuiz.imageUrl.lastIndex(of: "/")
@@ -208,7 +210,11 @@ extension QuizzesViewController: UICollectionViewDataSource {
         let grade = certainQuiz.level
         var i = 0
         while(i < grade) {
-            stars[i].tintColor = .systemYellow
+            stars[i].tintColor = indexPath.section == 0 ? .systemYellow : .systemBlue
+            i += 1
+        }
+        while(i < stars.count) {
+            stars[i].tintColor = .systemGray
             i += 1
         }
         i = 0
@@ -228,33 +234,25 @@ extension QuizzesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         switch kind {
-        case UICollectionView.elementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "cellHeader", for: indexPath)
-            
-            var textForSection = ""
-            if(Array(quizzesByCategory.keys)[indexPath.section] == .science) {
-                textForSection = "Science"
-            } else {
-                textForSection = "Sport"
-            }
+                case UICollectionView.elementKindSectionHeader:
+                    let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "cellHeaderSection" + String(indexPath.section), for: indexPath)
+                        
+                    let lab = UILabel()
+                    lab.text = quizzesByCategory[indexPath.section][0].category.rawValue.capitalized
+                    lab.textColor = indexPath.section == 0 ? .systemYellow : .systemBlue
+                    lab.frame = CGRect(x:20, y:0, width: view.frame.width, height: 20)
+                    lab.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
+                    headerView.addSubview(lab)
+                    return headerView
+                default:
+                    assert(false, "Unexpected")
                 
-            let lab = UILabel()
-            lab.text = textForSection
-            lab.textColor = .yellow
-            lab.frame = headerView.frame
-            lab.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
-            lab.frame.origin.x = 20
-            headerView.addSubview(lab)
-            return headerView
-        default:
-            assert(false, "Unexpected")
-        
-        }
+                }
         
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return quizzesByCategory.keys.count
+        return quizzesByCategory.count
     }
     
    
