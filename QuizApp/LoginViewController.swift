@@ -142,7 +142,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginButtonEnabler() {
-        if(passwordTextInput.hasText == true && usernameTextInput.hasText == true) {
+        if(passwordTextInput.hasText  && usernameTextInput.hasText) {
             loginButton.isEnabled = true
             loginButton.backgroundColor = UIColor(red:1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         } else {

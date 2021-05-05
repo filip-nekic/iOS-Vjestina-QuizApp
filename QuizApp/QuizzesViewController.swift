@@ -2,7 +2,7 @@
 //  QuizzesViewController.swift
 //  QuizApp
 //
-//  Created by five on 12/04/2021.
+//  Created by Filip Nekic on 12/04/2021.
 //
 
 import Foundation
@@ -18,6 +18,9 @@ class QuizzesViewController: UIViewController {
     private var lightBulb: UIImageView!
     private var quizzes: [Quiz]!
     private var quizzesByCategory: [[Quiz]]!
+    private var scrollView: UIScrollView!
+    private var contentView: UIView!
+    
     let cellIdentifier = "cellId"
     
     override func viewDidLoad() {
@@ -25,17 +28,25 @@ class QuizzesViewController: UIViewController {
         buildViews()
         addConstraints()
     }
-
+    
     private func buildViews() {
         view.backgroundColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
-
+        
+        scrollView = UIScrollView()
+        view.addSubview(scrollView)
+        contentView = UIView()
+        scrollView.addSubview(contentView)
+        
+        
+        
+        
         //header label "PopQuiz"
         headerText = UILabel()
         headerText.text = "PopQuiz"
         headerText.textColor = .white
         headerText.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
         headerText.textAlignment = .center
-
+        
         // Get Quizzes button
         getQuizzesButton = UIButton()
         let loginAttributes :[NSAttributedString.Key:Any] = [
@@ -47,109 +58,113 @@ class QuizzesViewController: UIViewController {
         getQuizzesButton.addTarget(self, action: #selector(getQuizzes), for: .touchUpInside)
         getQuizzesButton.backgroundColor = .white
         
-        //This is initialized only if the user pressed get quizzes beforehand
-        if(quizzes != nil) {
-            funFactLabel = UILabel()
-            funFactLabel.text = "Fun Fact"
-            funFactLabel.textColor = .white
-            funFactLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.bold)
-            
-            let lightBulbIcon = UIImage(systemName: "lightbulb.fill")
-            lightBulb = UIImageView(image: lightBulbIcon)
-            lightBulb.tintColor = .systemYellow
-            // getting the number of questions that contain "NBA"
-            let numberOfQWithNBA = quizzes.flatMap{$0.questions}.filter{$0.question.contains("NBA")}
-            
-            //fun fact label initialization
-            funFactText = UILabel()
-            funFactText.text = "There are \(numberOfQWithNBA.count) questions that contain the word \"NBA\""
-            funFactText.textColor = .white
-            funFactText.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
-            funFactText.lineBreakMode = .byWordWrapping
-            funFactText.numberOfLines = 7
-            
-            
-            //quizzes and their layout
-            let flowLayout = UICollectionViewFlowLayout()
-            flowLayout.itemSize = CGSize(width: view.frame.width - 20, height: 200)
-            flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-            flowLayout.scrollDirection = .vertical
-            flowLayout.headerReferenceSize = CGSize(width: view.frame.width, height: 20)
-            flowLayout.sectionHeadersPinToVisibleBounds = false
-            collectionView = UICollectionView(frame: CGRect(x: 0, y: 700 , width: (view.frame.width - 20), height: 10), collectionViewLayout: flowLayout)
-            collectionView.backgroundColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
-            collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-            collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection0")
-            collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection1")
-            collectionView.dataSource = self
-            collectionView.delegate = self
-            
-            view.addSubview(funFactLabel)
-            view.addSubview(funFactText)
-            view.addSubview(collectionView)
-            view.addSubview(lightBulb)
-
-        }
+        funFactLabel = UILabel()
+        funFactLabel.textColor = .white
+        funFactLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.bold)
         
-        view.addSubview(headerText)
-        view.addSubview(getQuizzesButton)
+        lightBulb = UIImageView()
+        lightBulb.tintColor = .systemYellow
         
-
-
+        
+        //fun fact label initialization
+        funFactText = UILabel()
+        funFactText.textColor = .white
+        funFactText.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
+        funFactText.lineBreakMode = .byWordWrapping
+        funFactText.numberOfLines = 7
+        
+        
+        //quizzes and their layout
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSize(width: (view.frame.width - 20), height: 200)
+        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        flowLayout.scrollDirection = .vertical
+        flowLayout.headerReferenceSize = CGSize(width: view.frame.width, height: 20)
+        flowLayout.sectionHeadersPinToVisibleBounds = false
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: 700 , width: (contentView.frame.width - 20), height: 10), collectionViewLayout: flowLayout)
+        collectionView.backgroundColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
+        
+        
+        contentView.addSubview(funFactLabel)
+        contentView.addSubview(funFactText)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(lightBulb)
+        
+        contentView.addSubview(headerText)
+        contentView.addSubview(getQuizzesButton)
+        
+        
+        
     }
-
+    
     private func addConstraints() {
+        
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+        
         headerText.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            headerText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            headerText.topAnchor.constraint(equalTo: view.topAnchor, constant: 61),
+            headerText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            headerText.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 61),
             headerText.heightAnchor.constraint(equalToConstant: 70),
-            headerText.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -20 )
+            headerText.widthAnchor.constraint(equalTo: contentView.widthAnchor,constant: -20 )
         ])
         
         getQuizzesButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             getQuizzesButton.topAnchor.constraint(equalTo: headerText.bottomAnchor, constant: 35),
-            getQuizzesButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            getQuizzesButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -64),
+            getQuizzesButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
+            getQuizzesButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -65),
             getQuizzesButton.heightAnchor.constraint(equalToConstant: 50)
             
         ])
-        if(quizzes != nil) {
-            funFactLabel.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                funFactLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-                funFactLabel.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 55),
-                funFactLabel.heightAnchor.constraint(equalToConstant: 70),
-                funFactLabel.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -20 )
-            ])
-            lightBulb.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                lightBulb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-                lightBulb.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 80),
-                
-            ])
+        funFactLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            funFactLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
+            funFactLabel.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 55),
+            funFactLabel.heightAnchor.constraint(equalToConstant: 70),
+            funFactLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,constant: -20 )
+        ])
+        lightBulb.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            lightBulb.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            lightBulb.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 80),
             
-            
-            funFactText.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                funFactText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-                funFactText.topAnchor.constraint(equalTo: funFactLabel.bottomAnchor),
-                funFactText.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -20 ),
-            ])
-            
-            collectionView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                collectionView.topAnchor.constraint(equalTo: funFactText.bottomAnchor,constant: 20),
-                collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ])
-            
-            
+        ])
         
-            
-        }
+        
+        funFactText.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            funFactText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            funFactText.topAnchor.constraint(equalTo: funFactLabel.bottomAnchor),
+            funFactText.widthAnchor.constraint(equalTo: contentView.widthAnchor,constant: -20 ),
+        ])
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.topAnchor.constraint(equalTo: funFactText.bottomAnchor,constant: 20),
+            collectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        
+        
     }
     // method that gets quizzes after button "Get Quiz" is pressed
     @objc func getQuizzes() {
@@ -157,9 +172,26 @@ class QuizzesViewController: UIViewController {
         quizzes = dataService.fetchQuizes()
         let dict = Dictionary(grouping: quizzes, by: { $0.category})
         quizzesByCategory = dict.map{ $0.value }
-        viewDidLoad()
+        funFactLabel.text = "Fun Fact"
+        
+        // getting the number of questions that contain "NBA"
+        let numberOfQWithNBA = quizzes.flatMap{$0.questions}.filter{$0.question.contains("NBA")}
+        funFactText.text = "There are \(numberOfQWithNBA.count) questions that contain the word \"NBA\""
+        
+        let lightBulbIcon = UIImage(systemName: "lightbulb.fill")
+        lightBulb.image = lightBulbIcon
+        
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection0")
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection1")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        NSLayoutConstraint.activate([
+            collectionView.heightAnchor.constraint(equalToConstant: collectionView.collectionViewLayout.collectionViewContentSize.height)
+        ])
     }
-   
+    
 }
 
 extension QuizzesViewController: UICollectionViewDataSource {
@@ -234,20 +266,19 @@ extension QuizzesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         switch kind {
-                case UICollectionView.elementKindSectionHeader:
-                    let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "cellHeaderSection" + String(indexPath.section), for: indexPath)
-                        
-                    let lab = UILabel()
-                    lab.text = quizzesByCategory[indexPath.section][0].category.rawValue.capitalized
-                    lab.textColor = indexPath.section == 0 ? .systemYellow : .systemBlue
-                    lab.frame = CGRect(x:20, y:0, width: view.frame.width, height: 20)
-                    lab.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
-                    headerView.addSubview(lab)
-                    return headerView
-                default:
-                    assert(false, "Unexpected")
-                
-                }
+        case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "cellHeaderSection" + String(indexPath.section), for: indexPath)
+            
+            let lab = UILabel()
+            lab.text = quizzesByCategory[indexPath.section][0].category.rawValue.capitalized
+            lab.textColor = indexPath.section == 0 ? .systemYellow : .systemBlue
+            lab.frame = CGRect(x:20, y:0, width: view.frame.width, height: 20)
+            lab.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
+            headerView.addSubview(lab)
+            return headerView
+        default:
+            assert(false, "Unexpected")
+        }
         
     }
     
@@ -255,7 +286,7 @@ extension QuizzesViewController: UICollectionViewDataSource {
         return quizzesByCategory.count
     }
     
-   
+    
 }
 
 extension QuizzesViewController: UICollectionViewDelegate {
