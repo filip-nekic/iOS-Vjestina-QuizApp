@@ -14,22 +14,27 @@ class LoginViewController: UIViewController {
     private var usernameTextInput: UITextField!
     private var passwordTextInput: UITextField!
     private var loginButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buildViews()
         addConstraints()
     }
-
+    
     private func buildViews() {
+        
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style:
+//                                                           .done, target: nil, action: nil)
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
+        self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
-
+        
         headerText = UILabel()
         headerText.text = "PopQuiz"
         headerText.textColor = .white
         headerText.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.bold)
         headerText.textAlignment = .center
-
+        
         
         let defaultTextAttributes:[NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white,
@@ -55,8 +60,8 @@ class LoginViewController: UIViewController {
         usernameTextInput.addTarget(self, action: #selector(loginButtonEnabler), for: .editingChanged)
         usernameTextInput.autocapitalizationType = .none
         
-       
-
+        
+        
         passwordTextInput = UITextField()
         let paddingForPasswordText = UIView(frame:CGRect(x:0, y:0, width: 20, height: passwordTextInput.frame.height))
         passwordTextInput.defaultTextAttributes = defaultTextAttributes
@@ -93,7 +98,7 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordTextInput)
         view.addSubview(loginButton)
     }
-
+    
     private func addConstraints() {
         headerText.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -102,7 +107,7 @@ class LoginViewController: UIViewController {
             headerText.heightAnchor.constraint(equalToConstant: 100),
             headerText.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -20 )
         ])
-
+        
         usernameTextInput.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             usernameTextInput.topAnchor.constraint(equalTo: headerText.bottomAnchor, constant: 100),
@@ -111,7 +116,7 @@ class LoginViewController: UIViewController {
             usernameTextInput.heightAnchor.constraint(equalToConstant: 50)
             
         ])
-
+        
         passwordTextInput.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             passwordTextInput.topAnchor.constraint(equalTo: usernameTextInput.bottomAnchor, constant: 20),
@@ -157,6 +162,7 @@ class LoginViewController: UIViewController {
         switch result {
         case .error(let number, let error):
             print("\(number) " + error)
+            self.navigationController?.pushViewController(QuizzesViewController(username: usernameTextInput.text!), animated: true)
         case .success:
             print("Username: " + usernameTextInput.text! + "\n" + "Password: " + passwordTextInput.text!)
         }
@@ -170,6 +176,6 @@ class LoginViewController: UIViewController {
     }
     
     
-
-   
+    
+    
 }

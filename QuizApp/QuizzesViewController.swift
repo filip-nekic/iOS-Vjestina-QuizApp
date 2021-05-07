@@ -20,8 +20,18 @@ class QuizzesViewController: UIViewController {
     private var quizzesByCategory: [[Quiz]]!
     private var scrollView: UIScrollView!
     private var contentView: UIView!
-    
+    var username: String
     let cellIdentifier = "cellId"
+    
+    
+    init(username: String) {
+        self.username = username
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +47,11 @@ class QuizzesViewController: UIViewController {
         contentView = UIView()
         scrollView.addSubview(contentView)
         
-        
-        
+//        let settings = SettingsViewController(username: self.username)
+//        let tabBarController = UITabBarController()
+//        tabBarController.viewControllers = [self,settings]
+//        
+//        
         
         //header label "PopQuiz"
         headerText = UILabel()
@@ -92,7 +105,7 @@ class QuizzesViewController: UIViewController {
         
         contentView.addSubview(headerText)
         contentView.addSubview(getQuizzesButton)
-        
+        print(view.subviews)
         
         
     }
@@ -122,7 +135,7 @@ class QuizzesViewController: UIViewController {
         headerText.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             headerText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            headerText.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 61),
+            headerText.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
             headerText.heightAnchor.constraint(equalToConstant: 70),
             headerText.widthAnchor.constraint(equalTo: contentView.widthAnchor,constant: -20 )
         ])
@@ -153,7 +166,7 @@ class QuizzesViewController: UIViewController {
         funFactText.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             funFactText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            funFactText.topAnchor.constraint(equalTo: funFactLabel.bottomAnchor),
+            funFactText.topAnchor.constraint(equalTo: funFactLabel.bottomAnchor,  constant: 10),
             funFactText.widthAnchor.constraint(equalTo: contentView.widthAnchor,constant: -20 ),
         ])
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -291,7 +304,7 @@ extension QuizzesViewController: UICollectionViewDataSource {
 
 extension QuizzesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //
+        self.navigationController?.pushViewController(QuizViewController(quiz: quizzesByCategory[indexPath.section][indexPath.row]), animated: true)
     }
 }
 

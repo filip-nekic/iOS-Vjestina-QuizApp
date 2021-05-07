@@ -12,6 +12,9 @@
 		520710AA26221B5000DEB99B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520710A926221B5000DEB99B /* SceneDelegate.swift */; };
 		520710B126221B5200DEB99B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 520710B026221B5200DEB99B /* Assets.xcassets */; };
 		520710B426221B5200DEB99B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 520710B226221B5200DEB99B /* LaunchScreen.storyboard */; };
+		520AF4A826433E41007D24D9 /* QuizResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AF4A726433E41007D24D9 /* QuizResultViewController.swift */; };
+		520ED31A2642C70600DA27E7 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520ED3192642C70600DA27E7 /* QuizViewController.swift */; };
+		520ED31D2642DBDC00DA27E7 /* QuestionTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520ED31C2642DBDC00DA27E7 /* QuestionTrackerView.swift */; };
 		5222DC9D2626049B0063AE39 /* Pictures in Resources */ = {isa = PBXBuildFile; fileRef = 5222DC9C2626049B0063AE39 /* Pictures */; };
 		522764C1262483FE00691585 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522764C0262483FE00691585 /* LoginViewController.swift */; };
 		522764EB2624F6A500691585 /* QuizzesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522764EA2624F6A500691585 /* QuizzesViewController.swift */; };
@@ -21,6 +24,7 @@
 		52806A852626EEB20031245D /* DataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A7F2626EEB20031245D /* DataServiceProtocol.swift */; };
 		52806A862626EEB20031245D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A802626EEB20031245D /* DataService.swift */; };
 		52806A872626EEB20031245D /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A812626EEB20031245D /* Quiz.swift */; };
+		52B608662645DFD600886E8B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B608652645DFD600886E8B /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,9 @@
 		520710B026221B5200DEB99B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		520710B326221B5200DEB99B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		520710B526221B5200DEB99B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		520AF4A726433E41007D24D9 /* QuizResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultViewController.swift; sourceTree = "<group>"; };
+		520ED3192642C70600DA27E7 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		520ED31C2642DBDC00DA27E7 /* QuestionTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTrackerView.swift; sourceTree = "<group>"; };
 		5222DC9C2626049B0063AE39 /* Pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pictures; sourceTree = "<group>"; };
 		522764C0262483FE00691585 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		522764EA2624F6A500691585 /* QuizzesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzesViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +48,7 @@
 		52806A7F2626EEB20031245D /* DataServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceProtocol.swift; sourceTree = "<group>"; };
 		52806A802626EEB20031245D /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		52806A812626EEB20031245D /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		52B608652645DFD600886E8B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7021A85F9465CADA71F53631 /* Pods-QuizApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizApp.debug.xcconfig"; path = "Target Support Files/Pods-QuizApp/Pods-QuizApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +99,10 @@
 				520710B526221B5200DEB99B /* Info.plist */,
 				522764C0262483FE00691585 /* LoginViewController.swift */,
 				522764EA2624F6A500691585 /* QuizzesViewController.swift */,
+				520ED3192642C70600DA27E7 /* QuizViewController.swift */,
+				520ED31C2642DBDC00DA27E7 /* QuestionTrackerView.swift */,
+				520AF4A726433E41007D24D9 /* QuizResultViewController.swift */,
+				52B608652645DFD600886E8B /* SettingsViewController.swift */,
 			);
 			path = QuizApp;
 			sourceTree = "<group>";
@@ -213,11 +225,15 @@
 				52806A852626EEB20031245D /* DataServiceProtocol.swift in Sources */,
 				52806A822626EEB20031245D /* LoginStatus.swift in Sources */,
 				52806A832626EEB20031245D /* QuizCategory.swift in Sources */,
+				520AF4A826433E41007D24D9 /* QuizResultViewController.swift in Sources */,
 				520710A826221B5000DEB99B /* AppDelegate.swift in Sources */,
 				52806A872626EEB20031245D /* Quiz.swift in Sources */,
+				520ED31A2642C70600DA27E7 /* QuizViewController.swift in Sources */,
+				52B608662645DFD600886E8B /* SettingsViewController.swift in Sources */,
 				522764EB2624F6A500691585 /* QuizzesViewController.swift in Sources */,
 				52806A842626EEB20031245D /* Question.swift in Sources */,
 				520710AA26221B5000DEB99B /* SceneDelegate.swift in Sources */,
+				520ED31D2642DBDC00DA27E7 /* QuestionTrackerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
