@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     private var usernameTextInput: UITextField!
     private var passwordTextInput: UITextField!
     private var loginButton: UIButton!
+    private var errorLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +24,9 @@ class LoginViewController: UIViewController {
     
     private func buildViews() {
         
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style:
-//                                                           .done, target: nil, action: nil)
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style:
+        //                                                           .done, target: nil, action: nil)
+        //        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
         self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = UIColor(red:0.49, green: 0.26, blue: 0.96, alpha: 1.0)
         
@@ -93,10 +94,15 @@ class LoginViewController: UIViewController {
         loginButton.isEnabled = false
         loginButton.addTarget(self, action: #selector(submit), for: .touchUpInside)
         
+        errorLabel = UILabel()
+        errorLabel.textColor = .white
+        
         view.addSubview(headerText)
         view.addSubview(usernameTextInput)
         view.addSubview(passwordTextInput)
         view.addSubview(loginButton)
+        view.addSubview(errorLabel)
+
     }
     
     private func addConstraints() {
@@ -134,6 +140,15 @@ class LoginViewController: UIViewController {
             loginButton.heightAnchor.constraint(equalToConstant: 50)
             
         ])
+        
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+            errorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            errorLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -60),
+            errorLabel.heightAnchor.constraint(equalToConstant: 50)
+            
+        ])
     }
     
     @objc func textFieldBorder(_  field: UITextField!) {
@@ -157,15 +172,47 @@ class LoginViewController: UIViewController {
     }
     
     @objc func submit() {
-        let log = DataService()
-        let result = log.login(email: usernameTextInput.text!, password: passwordTextInput.text!)
-        switch result {
-        case .error(let number, let error):
-            print("\(number) " + error)
-            self.navigationController?.pushViewController(QuizzesViewController(username: usernameTextInput.text!), animated: true)
-        case .success:
-            print("Username: " + usernameTextInput.text! + "\n" + "Password: " + passwordTextInput.text!)
+        let username = usernameTextInput.text!
+        let password = passwordTextInput.text!
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "iosquiz.herokuapp.com"
+        urlComponents.path = "/api/session"
+        urlComponents.queryItems = [
+           URLQueryItem(name: "username", value: username),
+           URLQueryItem(name: "password", value: password)
+        ]
+        guard let url = urlComponents.url else {return}
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let networkService = NetworkService()
+        networkService.executeUrlRequest(request) { (result: Result<LoginResponse, RequestError>) in
+            switch result {
+            case .failure(let error):
+                print("Ode")
+                print(error)
+                self.errorLabel.text = "Username or password incorrect."
+            case .success(let value):
+                print(value.token)
+                print(value.user_id)
+                let defaults = UserDefaults.standard
+                defaults.set(value.token, forKey: "token")
+                defaults.set(value.user_id, forKey: "user_id")
+                let settings = SettingsViewController(username: username)
+                let quizzes = QuizzesViewController(username: password)
+                quizzes.tabBarItem = UITabBarItem(title: "Quizzes", image: UIImage(systemName: "circle.grid.cross"), selectedImage: UIImage(systemName: "circle.grid.cross"))
+                settings.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), selectedImage: UIImage(systemName: "gear"))
+                let tabBarController = UITabBarController()
+                tabBarController.viewControllers = [quizzes, settings]
+                self.navigationController?.setViewControllers([tabBarController], animated: true)
+            }
         }
+        
+        
+        
+        
+        //        }
     }
     
     @objc func showPassword() {
@@ -179,3 +226,4 @@ class LoginViewController: UIViewController {
     
     
 }
+

@@ -76,7 +76,7 @@ class QuizViewController: UIViewController {
         currentQuestionIndex += 1
       
         if(currentQuestionIndex >= questions.count) {
-            self.navigationController?.pushViewController(QuizResultViewController(correctAnswers: correctAnswers,numOfQuestions: questions.count), animated: true)
+            self.navigationController?.pushViewController(QuizResultViewController(correctAnswers: correctAnswers,numOfQuestions: questions.count, quizId: self.quiz.id), animated: true)
 
             
         } else {

@@ -12,10 +12,12 @@ class QuizResultViewController: UIViewController {
     
     var correctAnswers: Int
     var numOfQuestions: Int
+    var quizId: Int
     
-    init(correctAnswers: Int, numOfQuestions: Int) {
+    init(correctAnswers: Int, numOfQuestions: Int, quizId: Int) {
         self.correctAnswers = correctAnswers
         self.numOfQuestions = numOfQuestions
+        self.quizId = quizId
         super.init(nibName: nil, bundle: nil)
         buildViews()
     }
@@ -57,11 +59,36 @@ class QuizResultViewController: UIViewController {
             finish.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
             finish.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "iosquiz.herokuapp.com"
+        urlComponents.path = "/api/result"
+        guard let url = urlComponents.url else {return}
+        var request = URLRequest(url: url)
+        let userDefaults = UserDefaults.standard
+        let userIdInt = Int(userDefaults.string(forKey: "user_id")!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(userDefaults.string(forKey: "token"), forHTTPHeaderField: "Authorization")
+        let resultData = ResultData(quiz_id: quizId, user_id: userIdInt!, time: 20.0, no_of_correct: correctAnswers)
+        let data = try! JSONEncoder().encode(resultData)
+        request.httpBody = data
+        let networkService = NetworkService()
+        networkService.executeUrlRequestNoResponse(request) { (result: Result<String, RequestError>) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let value):
+                print(value)
+            }
+        }
     }
     
     
     @objc func finishQuiz() {
-        self.navigationController?.popToViewController(self.navigationController!.viewControllers[1], animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     
