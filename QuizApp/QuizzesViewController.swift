@@ -46,12 +46,7 @@ class QuizzesViewController: UIViewController {
         view.addSubview(scrollView)
         contentView = UIView()
         scrollView.addSubview(contentView)
-        
-//        let settings = SettingsViewController(username: self.username)
-//        let tabBarController = UITabBarController()
-//        tabBarController.viewControllers = [self,settings]
-//        
-//        
+            
         
         //header label "PopQuiz"
         headerText = UILabel()
@@ -105,7 +100,6 @@ class QuizzesViewController: UIViewController {
         
         contentView.addSubview(headerText)
         contentView.addSubview(getQuizzesButton)
-        print(view.subviews)
         
         
     }
@@ -181,28 +175,49 @@ class QuizzesViewController: UIViewController {
     }
     // method that gets quizzes after button "Get Quiz" is pressed
     @objc func getQuizzes() {
-        let dataService = DataService()
-        quizzes = dataService.fetchQuizes()
-        let dict = Dictionary(grouping: quizzes, by: { $0.category})
-        quizzesByCategory = dict.map{ $0.value }
-        funFactLabel.text = "Fun Fact"
+//        let dataService = DataService()
+//        quizzes = dataService.fetchQuizes()
         
-        // getting the number of questions that contain "NBA"
-        let numberOfQWithNBA = quizzes.flatMap{$0.questions}.filter{$0.question.contains("NBA")}
-        funFactText.text = "There are \(numberOfQWithNBA.count) questions that contain the word \"NBA\""
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "iosquiz.herokuapp.com"
+        urlComponents.path = "/api/quizzes"
+        guard let url = urlComponents.url else {return}
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let lightBulbIcon = UIImage(systemName: "lightbulb.fill")
-        lightBulb.image = lightBulbIcon
+        let networkService = NetworkService()
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection0")
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection1")
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        networkService.executeUrlRequest(request) { (result: Result<QuizzesResponse, RequestError>) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let value):
+                self.quizzes = value.quizzes
+                let dict = Dictionary(grouping: self.quizzes, by: { $0.category})
+                self.quizzesByCategory = dict.map{ $0.value }
+                self.funFactLabel.text = "Fun Fact"
+                
+                // getting the number of questions that contain "NBA"
+                let numberOfQWithNBA = self.quizzes.flatMap{$0.questions}.filter{$0.question.contains("NBA")}
+                self.funFactText.text = "There are \(numberOfQWithNBA.count) questions that contain the word \"NBA\""
+                
+                let lightBulbIcon = UIImage(systemName: "lightbulb.fill")
+                self.lightBulb.image = lightBulbIcon
+                
+                self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: self.cellIdentifier)
+                self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection0")
+                self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "cellHeaderSection1")
+                self.collectionView.dataSource = self
+                self.collectionView.delegate = self
+                
+                NSLayoutConstraint.activate([
+                    self.collectionView.heightAnchor.constraint(equalToConstant: self.collectionView.collectionViewLayout.collectionViewContentSize.height)
+                ])
+            }
+        }
         
-        NSLayoutConstraint.activate([
-            collectionView.heightAnchor.constraint(equalToConstant: collectionView.collectionViewLayout.collectionViewContentSize.height)
-        ])
     }
     
 }

@@ -40,11 +40,13 @@ class SettingsViewController: UIViewController {
             .font : UIFont.systemFont(ofSize: 17.0, weight:UIFont.Weight.bold),
             .foregroundColor: UIColor.purple
         ]
+        logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
         logOutButton.setAttributedTitle(NSAttributedString(string: "Log out", attributes: logOutAttributes), for: .normal)
-        
+        logOutButton.backgroundColor = UIColor(red:1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        logOutButton.layer.cornerRadius = 26.0
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            usernameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            usernameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             usernameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             usernameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
             usernameLabel.heightAnchor.constraint(equalToConstant: 20)
@@ -55,18 +57,21 @@ class SettingsViewController: UIViewController {
         NSLayoutConstraint.activate([
             usernameName.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 30),
             usernameName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            usernameName.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
-            usernameLabel.heightAnchor.constraint(equalToConstant: 20)
+            usernameName.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20)
         ])
         
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            logOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            logOutButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
             logOutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             logOutButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
             logOutButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
+    }
+    
+    @objc func logOut() {
+        self.navigationController?.setViewControllers([LoginViewController()], animated: true)
     }
     
 }
