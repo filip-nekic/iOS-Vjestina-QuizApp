@@ -1,14 +1,15 @@
 //
-//  NetworkService.swift
+//  QuizNetworkDataSource.swift
 //  QuizApp
 //
-//  Created by five on 15/05/2021.
+//  Created by five on 29/05/2021.
 //
 
 import Foundation
 
-class NetworkService {
-    		
+class QuizNetworkDataSource {
+    var quizzes: [Quiz]!
+    
     func executeUrlRequest<T: Decodable>(_ request: URLRequest, completionHandler: @escaping
                             (Result<T, RequestError>) -> Void) {
         // 1.
@@ -40,7 +41,6 @@ class NetworkService {
                 return
             }
             // 4.
-            print("Uslo1")
             DispatchQueue.main.async {
                 completionHandler(.success(value))
             }
@@ -50,31 +50,15 @@ class NetworkService {
         dataTask.resume()
     }
     
-    func executeUrlRequestNoResponse(_ request: URLRequest, completionHandler: @escaping
-                            (Result<String, RequestError>) -> Void) {
-        // 1.
-        let dataTask = URLSession.shared.dataTask(with: request) { data, response, err in
-            // 2.
-            guard err == nil else {
-                DispatchQueue.main.async {
-                    completionHandler(.failure(.clientError))
-                }
-                return
-            }
-            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                DispatchQueue.main.async {
-                    completionHandler(.failure(.serverError))
-                }
-                return
-            }
-            // 3.
-            // 4.
-            DispatchQueue.main.async {
-                completionHandler(.success("Success"))
-            }
-            
-        }
-        // 5.
-        dataTask.resume()
+    func getRequest() -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "iosquiz.herokuapp.com"
+        urlComponents.path = "/api/quizzes"
+        guard let url = urlComponents.url else {return URLRequest(url: URL(string: "")!)}
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        return request
     }
 }

@@ -1,10 +1,3 @@
-//
-//  QuizzesViewController.swift
-//  QuizApp
-//
-//  Created by Filip Nekic on 12/04/2021.
-//
-
 import Foundation
 import UIKit
 
@@ -175,21 +168,11 @@ class QuizzesViewController: UIViewController {
     }
     // method that gets quizzes after button "Get Quiz" is pressed
     @objc func getQuizzes() {
-//        let dataService = DataService()
-//        quizzes = dataService.fetchQuizes()
         
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "iosquiz.herokuapp.com"
-        urlComponents.path = "/api/quizzes"
-        guard let url = urlComponents.url else {return}
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    let networkService = QuizNetworkDataSource()
+        var req = networkService.getRequest()
         
-        let networkService = NetworkService()
-        
-        networkService.executeUrlRequest(request) { (result: Result<QuizzesResponse, RequestError>) in
+        networkService.executeUrlRequest(req) { (result: Result<QuizzesResponse, RequestError>) in
             switch result {
             case .failure(let error):
                 print(error)
@@ -322,4 +305,3 @@ extension QuizzesViewController: UICollectionViewDelegate {
         self.navigationController?.pushViewController(QuizViewController(quiz: quizzesByCategory[indexPath.section][indexPath.row]), animated: true)
     }
 }
-

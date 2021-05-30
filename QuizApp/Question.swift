@@ -1,3 +1,5 @@
+import CoreData
+
 struct Question: Codable {
 
     let id: Int
@@ -11,6 +13,24 @@ struct Question: Codable {
         case answers
         case correctAnswer = "correct_answer"
         
+    }
+
+}
+
+extension Question {
+
+    init(with entity: CDQuestion) {
+        id = Int(entity.id)
+        question = entity.question
+        answers = entity.answers as! [String]
+        correctAnswer = Int(entity.correctAnswer)
+    }
+
+    func populate(_ entity: CDQuestion) {
+        entity.id = Int16(id)
+        entity.question = question
+        entity.answers = answers as! NSObject
+        entity.correctAnswer = Int16(correctAnswer)
     }
 
 }

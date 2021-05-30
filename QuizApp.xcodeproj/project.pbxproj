@@ -24,6 +24,14 @@
 		52806A852626EEB20031245D /* DataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A7F2626EEB20031245D /* DataServiceProtocol.swift */; };
 		52806A862626EEB20031245D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A802626EEB20031245D /* DataService.swift */; };
 		52806A872626EEB20031245D /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52806A812626EEB20031245D /* Quiz.swift */; };
+		5284C3B12663E46100151197 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5284C3B02663E46100151197 /* CoreDataStack.swift */; };
+		5284C3B42663E57B00151197 /* QuizDatabaseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5284C3B32663E57B00151197 /* QuizDatabaseDataSource.swift */; };
+		5286E9B32662823D002EB276 /* iosVjestina.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5286E9B12662823D002EB276 /* iosVjestina.xcdatamodeld */; };
+		5286E9C4266291D1002EB276 /* CDQuiz+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5286E9C0266291D1002EB276 /* CDQuiz+CoreDataClass.swift */; };
+		5286E9C5266291D1002EB276 /* CDQuiz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5286E9C1266291D1002EB276 /* CDQuiz+CoreDataProperties.swift */; };
+		5286E9C6266291D1002EB276 /* CDQuestion+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5286E9C2266291D1002EB276 /* CDQuestion+CoreDataClass.swift */; };
+		5286E9C7266291D1002EB276 /* CDQuestion+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5286E9C3266291D1002EB276 /* CDQuestion+CoreDataProperties.swift */; };
+		5286E9CA2662934D002EB276 /* QuizNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5286E9C92662934D002EB276 /* QuizNetworkDataSource.swift */; };
 		529FE7C426501EC7003361B7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529FE7C326501EC7003361B7 /* NetworkService.swift */; };
 		529FE7C726501F38003361B7 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529FE7C626501F38003361B7 /* RequestError.swift */; };
 		529FE7CE26503E62003361B7 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529FE7CD26503E62003361B7 /* LoginResponse.swift */; };
@@ -53,6 +61,14 @@
 		52806A7F2626EEB20031245D /* DataServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceProtocol.swift; sourceTree = "<group>"; };
 		52806A802626EEB20031245D /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		52806A812626EEB20031245D /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		5284C3B02663E46100151197 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		5284C3B32663E57B00151197 /* QuizDatabaseDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDatabaseDataSource.swift; sourceTree = "<group>"; };
+		5286E9B22662823D002EB276 /* iosVjestina.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iosVjestina.xcdatamodel; sourceTree = "<group>"; };
+		5286E9C0266291D1002EB276 /* CDQuiz+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuiz+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5286E9C1266291D1002EB276 /* CDQuiz+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuiz+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5286E9C2266291D1002EB276 /* CDQuestion+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuestion+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5286E9C3266291D1002EB276 /* CDQuestion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuestion+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5286E9C92662934D002EB276 /* QuizNetworkDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizNetworkDataSource.swift; sourceTree = "<group>"; };
 		529FE7C326501EC7003361B7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		529FE7C626501F38003361B7 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		529FE7CD26503E62003361B7 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -95,6 +111,7 @@
 		520710A626221B5000DEB99B /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
+				5286E9B026628214002EB276 /* CoreData */,
 				52806A802626EEB20031245D /* DataService.swift */,
 				52806A7F2626EEB20031245D /* DataServiceProtocol.swift */,
 				52806A7C2626EEB10031245D /* LoginStatus.swift */,
@@ -118,8 +135,23 @@
 				529FE7CD26503E62003361B7 /* LoginResponse.swift */,
 				529FE7D026504FB6003361B7 /* QuizzesResponse.swift */,
 				52B61A4F26518CE7005C01BC /* ResultData.swift */,
+				5286E9C92662934D002EB276 /* QuizNetworkDataSource.swift */,
 			);
 			path = QuizApp;
+			sourceTree = "<group>";
+		};
+		5286E9B026628214002EB276 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				5286E9C0266291D1002EB276 /* CDQuiz+CoreDataClass.swift */,
+				5286E9C1266291D1002EB276 /* CDQuiz+CoreDataProperties.swift */,
+				5286E9C2266291D1002EB276 /* CDQuestion+CoreDataClass.swift */,
+				5286E9C3266291D1002EB276 /* CDQuestion+CoreDataProperties.swift */,
+				5286E9B12662823D002EB276 /* iosVjestina.xcdatamodeld */,
+				5284C3B02663E46100151197 /* CoreDataStack.swift */,
+				5284C3B32663E57B00151197 /* QuizDatabaseDataSource.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		5840CA90B80E0B1233F40C8E /* Pods */ = {
@@ -235,23 +267,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5286E9C7266291D1002EB276 /* CDQuestion+CoreDataProperties.swift in Sources */,
 				529FE7C726501F38003361B7 /* RequestError.swift in Sources */,
 				52806A862626EEB20031245D /* DataService.swift in Sources */,
 				522764C1262483FE00691585 /* LoginViewController.swift in Sources */,
 				52806A852626EEB20031245D /* DataServiceProtocol.swift in Sources */,
 				52806A822626EEB20031245D /* LoginStatus.swift in Sources */,
+				5286E9C5266291D1002EB276 /* CDQuiz+CoreDataProperties.swift in Sources */,
 				52806A832626EEB20031245D /* QuizCategory.swift in Sources */,
 				520AF4A826433E41007D24D9 /* QuizResultViewController.swift in Sources */,
 				520710A826221B5000DEB99B /* AppDelegate.swift in Sources */,
 				52806A872626EEB20031245D /* Quiz.swift in Sources */,
+				5286E9C6266291D1002EB276 /* CDQuestion+CoreDataClass.swift in Sources */,
 				520ED31A2642C70600DA27E7 /* QuizViewController.swift in Sources */,
 				52B608662645DFD600886E8B /* SettingsViewController.swift in Sources */,
+				5286E9B32662823D002EB276 /* iosVjestina.xcdatamodeld in Sources */,
 				529FE7C426501EC7003361B7 /* NetworkService.swift in Sources */,
 				522764EB2624F6A500691585 /* QuizzesViewController.swift in Sources */,
 				52806A842626EEB20031245D /* Question.swift in Sources */,
 				520710AA26221B5000DEB99B /* SceneDelegate.swift in Sources */,
+				5284C3B12663E46100151197 /* CoreDataStack.swift in Sources */,
+				5286E9C4266291D1002EB276 /* CDQuiz+CoreDataClass.swift in Sources */,
+				5284C3B42663E57B00151197 /* QuizDatabaseDataSource.swift in Sources */,
 				529FE7CE26503E62003361B7 /* LoginResponse.swift in Sources */,
 				52B61A5026518CE7005C01BC /* ResultData.swift in Sources */,
+				5286E9CA2662934D002EB276 /* QuizNetworkDataSource.swift in Sources */,
 				529FE7D126504FB6003361B7 /* QuizzesResponse.swift in Sources */,
 				520ED31D2642DBDC00DA27E7 /* QuestionTrackerView.swift in Sources */,
 			);
@@ -447,6 +487,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5286E9B12662823D002EB276 /* iosVjestina.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5286E9B22662823D002EB276 /* iosVjestina.xcdatamodel */,
+			);
+			currentVersion = 5286E9B22662823D002EB276 /* iosVjestina.xcdatamodel */;
+			path = iosVjestina.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5207109C26221B5000DEB99B /* Project object */;
 }
